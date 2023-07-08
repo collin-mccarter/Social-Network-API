@@ -7,23 +7,23 @@ const {
     deleteUser,
     addUserFriend,
     removeUserFriend,
-} = require('../../controllers/userControllers');
-
-
-router.route('/')
-    .get(getUsers)
-    .post(createUser);
-
-
-router.route('/:userId')
+  } = require('../../controllers/userController');
+  
+ 
+  router.route('/')
+  .get(getUsers)
+  .post(createUser);
+  
+  
+  router.route('/:userId')
     .get(getSingleUser)
     .put(updateUser)
     .delete(deleteUser);
+  
+  
+  router.route('/:userId/friends/:friendId')
+  .post(addUserFriend)
+  .delete(removeUserFriend)
 
-
-router.route('/:userId/friends/:friendId')
-    .post(addUserFriend)
-    .delete(removeUserFriend)
-
-
-module.exports = router;
+  
+  module.exports = router;
