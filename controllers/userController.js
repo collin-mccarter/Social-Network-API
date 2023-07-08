@@ -17,7 +17,7 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-  
+
   createUser(req, res) {
     User.create(req.body)
       .then((steve) => res.json(steve))
@@ -46,21 +46,21 @@ module.exports = {
         !user
           ? res.status(404).json({ message: 'No user with this id please try again!' })
           : User.findOneAndUpdate(
-              { users: req.params.userId },
-              { $pull: { users: req.params.userId } },
-              { new: true }
-            )
+            { users: req.params.userId },
+            { $pull: { users: req.params.userId } },
+            { new: true }
+          )
       )
       .then((user) =>
         !user
           ? res
-              .status(404)
-              .json({ message: 'User created but no user with this id!' })
+            .status(404)
+            .json({ message: 'User created but no user with this id!' })
           : res.json({ message: 'User successfully deleted!' })
       )
       .catch((err) => res.status(500).json(err));
   },
-  
+
   addUserFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
@@ -74,7 +74,7 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-  
+
   removeUserFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },

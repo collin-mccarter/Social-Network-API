@@ -3,7 +3,7 @@ const User = require('../models/Users');
 
 
 module.exports = {
- getThoughts(req, res) {
+  getThoughts(req, res) {
     Thought.find()
       .then((thoughts) => res.json(thoughts))
       .catch((err) => res.status(500).json(err));
@@ -33,23 +33,23 @@ module.exports = {
           ? res.status(404).json({ message: 'No thought with this id please try again!' })
           : res.json(thought)
       )
-},
-deleteThought(req, res) {
+  },
+  deleteThought(req, res) {
     Thought.findOneAndRemove({ _id: req.params.thoughtId })
       .then((user) =>
         !user
           ? res.status(404).json({ message: 'No thought found!' })
           : Thought.findOneAndUpdate(
-              { users: req.params.thoughtId },
-              { $pull: { users: req.params.thoughtId } },
-              { new: true }
-            )
+            { users: req.params.thoughtId },
+            { $pull: { users: req.params.thoughtId } },
+            { new: true }
+          )
       )
       .then((thought) =>
         !thought
           ? res
-              .status(404)
-              .json({ message: 'Thought created but no user with this id!' })
+            .status(404)
+            .json({ message: 'Thought created but no user with this id!' })
           : res.json({ message: 'Thought successfully deleted!' })
       )
       .catch((err) => res.status(500).json(err));
